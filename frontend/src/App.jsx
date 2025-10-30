@@ -6,8 +6,8 @@ import Contribute from "./pages/Contribute";
 import Leaderboard from "./pages/Leaderboard";
 import Signup from "./pages/SignUp";
 import Login from "./pages/Login";
-import DonorDashboard from "./pages/Dashboard/DonorDashboard";
-import ReceiverDashboard from "./pages/Dashboard/ReceiverDashboard";
+// import DonorDashboard from "./pages/Dashboard/DonorDashboard";
+// import ReceiverDashboard from "./pages/Dashboard/ReceiverDashboard";
 
 function App() {
   return (
@@ -23,8 +23,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
 
           {/* ✅ Donor aur Receiver Dashboard (abhi ke liye without protected route) */}
-          <Route path="/dashboard/donor" element={<DonorDashboard />} />
-          <Route path="/dashboard/receiver" element={<ReceiverDashboard />} />
+          {/* <Route path="/dashboard/donor" element={<DonorDashboard />} />
+          <Route path="/dashboard/receiver" element={<ReceiverDashboard />} /> */}
         </Routes>
       </div>
     </BrowserRouter>
