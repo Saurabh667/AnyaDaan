@@ -4,13 +4,22 @@ import { Menu, X, Bell, Mail } from "lucide-react";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const isLoggedIn = localStorage.getItem("authToken"); // 👈 check login status
 
+  // ✅ Navigation links
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Contribute", path: "/contribute" },
     { name: "Leaderboard", path: "/leaderboard" },
+    { name: "Dashboard", path: "/dashboard" },
   ];
+
+  // ✅ Logout function
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    window.location.href = "/"; // redirect to home after logout
+  };
 
   return (
     <header className="bg-white shadow-md fixed w-full top-0 z-50">
@@ -25,7 +34,7 @@ export default function Header() {
             alt="Replate Clone Logo"
             className="h-8 w-8 rounded-full"
           />
-          <span>Replate Clone</span>
+          <span>AnyaDaan</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -63,21 +72,30 @@ export default function Header() {
             </span>
           </button>
 
-          {/* Login */}
-          <Link
-            to="/login"
-            className="px-4 py-2 rounded-lg border border-green-600 text-green-600 font-medium hover:bg-green-50 transition"
-          >
-            Login
-          </Link>
-
-          {/* Signup */}
-          <Link
-            to="/signup"
-            className="px-4 py-2 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 transition"
-          >
-            Signup
-          </Link>
+          {/* Auth Buttons */}
+          {!isLoggedIn ? (
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-lg border border-green-600 text-green-600 font-medium hover:bg-green-50 transition"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="px-4 py-2 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 transition"
+              >
+                Signup
+              </Link>
+            </>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 rounded-lg border border-red-500 text-red-500 font-medium hover:bg-red-50 transition"
+            >
+              Logout
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -121,22 +139,36 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Auth buttons */}
+          {/* Auth buttons for Mobile */}
           <div className="p-4 flex flex-col gap-3">
-            <Link
-              to="/login"
-              onClick={() => setOpen(false)}
-              className="w-full px-4 py-2 rounded-lg border border-green-600 text-green-600 text-center font-medium hover:bg-green-50 transition"
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              onClick={() => setOpen(false)}
-              className="w-full px-4 py-2 rounded-lg bg-green-600 text-white text-center font-medium hover:bg-green-700 transition"
-            >
-              Signup
-            </Link>
+            {!isLoggedIn ? (
+              <>
+                <Link
+                  to="/login"
+                  onClick={() => setOpen(false)}
+                  className="w-full px-4 py-2 rounded-lg border border-green-600 text-green-600 text-center font-medium hover:bg-green-50 transition"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  onClick={() => setOpen(false)}
+                  className="w-full px-4 py-2 rounded-lg bg-green-600 text-white text-center font-medium hover:bg-green-700 transition"
+                >
+                  Signup
+                </Link>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  handleLogout();
+                }}
+                className="w-full px-4 py-2 rounded-lg border border-red-500 text-red-500 text-center font-medium hover:bg-red-50 transition"
+              >
+                Logout
+              </button>
+            )}
           </div>
         </div>
       )}
