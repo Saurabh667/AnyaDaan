@@ -16,9 +16,9 @@ const Home = () => {
       <ImpactSection />
       <ContributeSection />
       <LeaderboardSection />
+      <MissionSection />
       <JoinUsSection />
       <Footer /> 
-      <MissionSection />
     </div>
   );
 };
